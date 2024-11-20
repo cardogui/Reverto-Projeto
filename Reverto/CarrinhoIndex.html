@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>RƎVERTO - Carrinho de Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .cart-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 1rem 0;
+        }
+        .cart-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .item-details {
+            flex-grow: 1;
+            margin-left: 1rem;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            margin-left: 1rem; /* Adiciona margem à esquerda para espaço */
+        }
+        .quantity-control button {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f5f5;
+            border: none;
+            cursor: pointer;
+        }
+        .quantity-control input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            padding: 0;
+        }
+        .remove-item {
+            color: #FF6B00;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 1rem;
+        }
+        .cart-summary {
+            text-align: right;
+        }
+    </style>
+    <script>
+        function updateSubtotal() {
+            const items = document.querySelectorAll('.cart-item');
+            let subtotal = 0;
+            items.forEach(item => {
+                const price = parseFloat(item.dataset.price);
+                const quantity = parseInt(item.querySelector('input[type="number"]').value);
+                subtotal += price * quantity;
+            });
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+            const shipping = 20.00; // Valor fixo para o frete
+            document.getElementById('total').textContent = `R$ ${(subtotal + shipping).toFixed(2)}`;
+        }
+
+        function adjustQuantity(item, change) {
+            const quantityInput = item.querySelector('input[type="number"]');
+            let quantity = parseInt(quantityInput.value);
+            quantity = Math.max(1, quantity + change);
+            quantityInput.value = quantity;
+            updateSubtotal();
+        }
+
+        function removeItem(item) {
+            item.remove();
+            updateSubtotal();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const quantityControls = document.querySelectorAll('.quantity-control');
+            quantityControls.forEach(control => {
+                const item = control.closest('.cart-item');
+                control.querySelector('button:first-child').addEventListener('click', () => adjustQuantity(item, -1));
+                control.querySelector('button:last-child').addEventListener('click', () => adjustQuantity(item, 1));
+            });
+
+            const removeButtons = document.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', () => removeItem(button.closest('.cart-item')));
+            });
+
+            updateSubtotal(); // Inicializa o subtotal
+        });
+    </script>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <nav class="bg-[#172218] shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <a class="text-2xl font-bold text-white" href="#">RƎVERTO</a>
+            <div class="flex items-center space-x-4">
+                <a class="text-white hover:text-gray-400" href="#">Início</a>
+                <a class="text-white hover:text-gray-400" href="#">Loja</a>
+                <a class="text-white hover:text-gray-400" href="#">Sobre</a>
+                <a class="text-white hover:text-gray-400" href="#">Contato</a>
+                <a class="text-white hover:text-gray-400" href="CarrinhoIndex.html" aria-label="Carrinho de Compras"><i class="fas fa-shopping-cart"></i></a>
+                <a class="text-white hover:text-gray-400" href="PerfilIndex.html" aria-label="Perfil do Usuário"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-container mx-auto px-4 py-8 flex-1">
+        <h1 class="text-2xl font-bold mb-6 text-center">Seu Carrinho</h1>
+        
+        <div class="cart-item" data-price="99.99">
+            <img src="FOR/camisa 1.jpeg" alt="Camiseta Preta Básica" class="w-32 h-32 object-cover rounded-md"/>
+            <div class="item-details">
+                <h3 class="font-bold">Camiseta Preta Básica</h3>
+                <p class="text-gray-600">Tamanho: 
+                    <select class="size-select" aria-label="Escolha o tamanho">
+                        <option value="P">P</option>
+                        <option value="M" selected>M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
+                    </select>
+                </p>
+                <p class="text-gray-600">R$ 99,99</p>
+            </div>
+            <div class="quantity-control">
+                <button>-</button>
+                <input type="number" value="1" min="1" aria-label="Quantidade"/>
+                <button>+</button>
+            </div>
+            <div class="ml-4">
+                <span class="font-bold">R$ 99,99</span>
+            </div>
+            <span class="remove-item" aria-label="Remover item">&times;</span>
+        </div>
+
+        <div class="cart-item" data-price="89.99"> <!-- Alterado para R$ 89,99 -->
+            <img src="FOR/camisa 3.jpeg" alt="Camiseta Branca Básica" class="w-32 h-32 object-cover rounded-md"/>
+            <div class="item-details">
+                <h3 class="font-bold">Camiseta Branca Básica</h3>
+                <p class="text-gray-600">Tamanho: 
+                    <select class="size-select" aria-label="Escolha o tamanho">
+                        <option value="P" selected>P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
+                    </select>
+                </p>
+                <p class="text-gray-600">R$ 89,99</p> <!-- Alterado para R$ 89,99 -->
+            </div>
+            <div class="quantity-control">
+                <button>-</button>
+                <input type="number" value="1" min="1" aria-label="Quantidade"/>
+                <button>+</button>
+            </div>
+            <div class="ml-4">
+                <span class="font-bold">R$ 89,99</span> <!-- Alterado para R$ 89,99 -->
+            </div>
+            <span class="remove-item" aria-label="Remover item">&times;</span>
+        </div>
+
+        <div class="cart-summary mt-6 text-right">
+            <div class="mb-2">
+                <span>Subtotal:</span>
+                <span id="subtotal" class="font-bold ml-2">R$ 289,98</span> <!-- Atualizado para refletir a nova soma -->
+            </div>
+            <div class="mb-4">
+                <span>Frete:</span>
+                <span class="font-bold ml-2">R$ 20,00</span>
+            </div>
+            <div class=" font-bold text-xl">
+                <span>Total:</span>
+                <span id="total" class="ml-2">R$ 309,98</span> <!-- Atualizado para refletir a nova soma -->
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button class="bg-[#FF6B00] text-white rounded p-2 hover:bg-[#FF8C00] transition-colors">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <footer class="bg-[#172218] text-white py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h4 class="text-md font-semibold mb-4">COMPANHIA</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a class="hover:text-gray-400" href="#">Sobre Nós</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Carreiras</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Sustentabilidade</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-md font-semibold mb-4">AJUDA</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a class="hover:text-gray-400" href="#">Atendimento ao Cliente</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Trocas e Devoluções</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Pedidos</a></li>
+                    <li><a class="hover:text-gray-400" href="#">Pagamento</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-md font-semibold mb-4">REDES SOCIAIS</h4>
+                <div class="flex space-x-4">
+                    <a class="hover:text-gray-400" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="hover:text-gray-400" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a class="hover:text-gray-400" href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="hover:text-gray-400" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-md font-semibold mb-4">MANTENHA-SE CONECTADO</h4>
+                <form>
+                    <input type="email" placeholder="Insira seu email" class="border border-gray-300 rounded w-full p-2 mb-2" required>
+                    <button type="submit" class="bg-[#FF6B00] text-white rounded w-full p-2 hover:bg-[#FF8C00] transition-colors">Inscrever-se</button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-6 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400 text-xs">© 2023 RƎVERTO. Todos os direitos reservados.</p>
+            <div class="flex justify-center space-x-2 mt-2 text-xs">
+                <a class="text-gray-400 hover:text-white" href="#">Termos de Uso</a>
+                <span class="text-gray-400">|</span>
+                <a class="text-gray-400 hover:text-white" href="#">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
