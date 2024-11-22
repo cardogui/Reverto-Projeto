@@ -1,73 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Footer Component</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            font-family: 'Roboto', sans-serif;
         }
         .content {
             flex: 1;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #172218;
+            color: white;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .footer-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .footer-text {
+            font-size: 0.875rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .footer-text li {
+            margin-bottom: 8px;
+        }
+        .footer-text a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer-text a:hover {
+            color: #ccc;
+        }
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.25rem;
+        }
+        .social-links a:hover {
+            color: #ccc;
+        }
+        .subscribe-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .subscribe-button {
+            background-color: #FF6B00;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .subscribe-button:hover {
+            background-color: #FF8C00;
+        }
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #ccc;
+        }
+        .footer-bottom a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer-bottom a:hover {
+            color: white;
         }
     </style>
 </head>
 <body>
+        <!-- Aqui Também!! -->
     <div class="content">
+        <h1>Título da Página</h1>
         <!-- Conteúdo da página iria aqui -->
     </div>
 
-    <footer class="bg-[#172218] text-white py-8">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer>
+        <div class="container">
             <div>
-                <h4 class="text-md font-semibold mb-4">COMPANHIA</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a class="hover:text-gray-400" href="#">Sobre Nós</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Carreiras</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Sustentabilidade</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Blog</a></li>
+                <h4 class="footer-heading">COMPANHIA</h4>
+                <ul class="footer-text">
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Sustentabilidade</a></li>
+                    <li><a href="#">Blog</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-md font-semibold mb-4">AJUDA</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a class="hover:text-gray-400" href="#">Atendimento ao Cliente</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Trocas e Devoluções</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Pedidos</a></li>
-                    <li><a class="hover:text-gray-400" href="#">Pagamento</a></li>
+                <h4 class="footer-heading">AJUDA</h4>
+                <ul class="footer-text">
+                    <li><a href="#">Atendimento ao Cliente</a></li>
+                    <li><a href="#">Trocas e Devoluções</a></li>
+                    <li><a href="#">Pedidos</a></li>
+                    <li><a href="#">Pagamento</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-md font-semibold mb-4">REDES SOCIAIS</h4>
-                <div class="flex space-x-4">
-                    <a class="hover:text-gray-400" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="hover:text-gray-400" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a class="hover:text-gray-400" href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="hover:text-gray-400" href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <h4 class="footer-heading">REDES SOCIAIS</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class ="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div>
-                <h4 class="text-md font-semibold mb-4">MANTENHA-SE CONECTADO</h4>
+                <h4 class="footer-heading">MANTENHA-SE CONECTADO</h4>
                 <form>
-                    <input type="email" placeholder="Insira seu email" class="border border-gray-300 rounded w-full p-2 mb-2" required>
-                    <button type="submit" class="bg-[#FF6B00] text-white rounded w-full p-2 hover:bg-[#FF8C00] transition-colors">Inscrever-se</button>
+                    <input type="email" placeholder="Insira seu email" class="subscribe-input" required>
+                    <button type="submit" class="subscribe-button">Inscrever-se</button>
                 </form>
             </div>
         </div>
-        <div class="container mx-auto px-4 mt-6 border-t border-gray-700 pt-4 text-center">
-            <p class="text-gray-400 text-xs">© 2023 RƎVERTO. Todos os direitos reservados.</p>
-            <div class="flex justify-center space-x-2 mt-2 text-xs">
-                <a class="text-gray-400 hover:text-white" href="#">Termos de Uso</a>
-                <span class="text-gray-400">|</span>
-                <a class="text-gray-400 hover:text-white" href="#">Política de Privacidade</a>
+        <div class="footer-bottom">
+            <p>© 2023 RƎVERTO. Todos os direitos reservados.</p>
+            <div>
+                <a href="#">Termos de Uso</a>
+                <span>|</span>
+                <a href="#">Política de Privacidade</a>
             </div>
         </div>
     </footer>
